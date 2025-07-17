@@ -30,23 +30,23 @@ jobs:
 
       - name: Extract branch name
         id: extact_branch
-        run: echo "branch-$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
 
       - name: Update Databricks Repo (Dev)
         run: |
           databricks repos update "${{ env.REPO_PATH }}" \
             --branch "${{ steps.extract_branch.outputs.branch }}"
 
-    deploy-prod:
-      needs: deploy-dev
-      runs-on: ubuntu-latest
-      envirionment: production
-      env:
-        DATABRICKS_HOST: ${{ secrets.PROD_DEPLOYMENT_URL }}
-        DATABRICKS_TOKEN: ${{ secrets.PROD_DEPLOYMENT_TOKEN }}
-        REPO_PTH: /Workspace/Users/cmlaing@yahoo.com/PROD-DATABRICKS-GIT-FOLDER
+  deploy-prod:
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      DATABRICKS_HOST: ${{ secrets.PROD_DEPLOYMENT_URL }}
+      DATABRICKS_TOKEN: ${{ secrets.PROD_DEPLOYMENT_TOKEN }}
+      REPO_PTH: /Workspace/Users/cmlaing@yahoo.com/PROD-DATABRICKS-GIT-FOLDER
 
-      steps:
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -60,7 +60,7 @@ jobs:
 
       - name: Extract branch name
         id: extact_branch
-        run: echo "branch-$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
 
       - name: Update Databricks Repo (Dev)
         run: |
