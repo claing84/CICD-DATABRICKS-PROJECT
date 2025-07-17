@@ -29,7 +29,7 @@ jobs:
         uses: databricks/setup-cli@main
 
       - name: Extract branch name
-        id: extact_branch
+        id: extract_branch
         run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
 
       - name: Update Databricks Repo (Dev)
@@ -59,7 +59,7 @@ jobs:
         uses: databricks/setup-cli@main
 
       - name: Extract branch name
-        id: extact_branch
+        id: extract_branch
         run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
 
       - name: Update Databricks Repo (Dev)
